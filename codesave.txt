@@ -1,0 +1,46 @@
+#might use later
+# def process_images(folder_path, model_path):
+#     data_records = []
+#     regions = [(0.44492, 0.71250, 0.04844, 0.04861), # u_amount spent and left
+#                (0.44531, 0.76180, 0.04844, 0.05208), # t1_amount spent and left
+#                (0.44492, 0.81667, 0.04844, 0.04861), # t2_amount spent and left
+#                (0.44531, 0.86597, 0.04844, 0.05208), # t3_amount spent and left
+#                (0.44531, 0.92014, 0.04844, 0.04861)] # t4_amount spent and left
+
+#     gun_region = (0.37969, 0.71528, 0.06328, 0.04375)
+
+#     for filename in os.listdir(folder_path):
+#         image_path = os.path.join(folder_path, filename)
+#         credits = [image_to_text(image_path, region) for region in regions]
+
+#         cropped_gun_image = crop_image_path(image_path, gun_region)
+#         create_temp_gun(cropped_gun_image, 'temp_gun', 'gun.png')
+#         gun_name = classify_gun(model_path, 'temp_gun/gun.png')
+
+#         spent_list = []
+#         left_list = []
+#         for credit_text in credits:
+#             split_credit = credit_text.split('\n')
+#             if len(split_credit) > 1:
+#                 spent = process_credits(split_credit[0])  
+#                 left = process_credits(split_credit[1])   
+#             else:
+#                 spent = '0'
+#                 left = process_credits(split_credit[0])
+
+#             spent_list.append(int(spent))
+#             left_list.append(int(left))
+#         print(image_path)
+#         for i in range(len(spent_list)):
+#             print(spent_list[i], "\n", left_list[i])
+#         record = {
+#             'bu_credits': spent_list[0] + left_list[0],
+#             't1_credits': spent_list[1] + left_list[1],
+#             't2_credits': spent_list[2] + left_list[2],
+#             't3_credits': spent_list[3] + left_list[3],
+#             't4_credits': spent_list[4] + left_list[4],
+#             'gun': gun_name
+#         }
+#         data_records.append(record)
+
+#     return data_records
