@@ -3,8 +3,10 @@ import numpy as np
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Dropout
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from joblib import dump
 
 # Load and preprocess the data
 data = pd.read_csv('vct_data.csv')
@@ -19,11 +21,14 @@ X = X_scaled
 y_shield = shield_encoded
 y_gun = gun_encoded
 X_train, X_test, y_shield_train, y_shield_test, y_gun_train, y_gun_test = train_test_split(X, y_shield, y_gun, test_size=0.2, random_state=42)
+
 # print("Unique values in 'gun' column:", data['gun'].unique())
 # Define and compile the neural network
 inputs = Input(shape=(X_train.shape[1],))
-x = Dense(100, activation='relu')(inputs)
+x = Dense(128, activation='relu')(inputs)  # Increased size
+x = Dropout(0.5)(x)  # Dropout for regularization
 x = Dense(64, activation='relu')(x)
+x = Dense(32, activation='relu')(x)
 
 # Define output layers with correct number of neurons
 shield_output = Dense(3, activation='softmax', name='shield_output')(x)  # 3 unique classes for 'shield'
@@ -39,3 +44,6 @@ model.fit(X_train, [y_shield_train, y_gun_train], validation_data=(X_test, [y_sh
 
 # Save the model
 model.save('gun_shield_model.keras')
+dump(scaler, 'scaler.joblib')
+dump(encoder_shield, 'encoder_shield.joblib')
+dump(encoder_gun, 'encoder_gun.joblib')
