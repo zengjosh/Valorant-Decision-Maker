@@ -111,7 +111,7 @@ def process_images(folder_path, model_path):
         cropped_shield_image = crop_image_path(image_path, shield_region)
 
         create_temp_gun(cropped_gun_image, 'temp_gun', 'gun.png')
-        create_temp_gun(cropped_shield_image, 'temp_shield', 'shield.png')  # Reusing the function for saving images
+        create_temp_gun(cropped_shield_image, 'temp_shield', 'shield.png') 
 
         gun_name = classify_gun('vct_guns_model.keras', 'temp_gun/gun.png')
         shield_type = classify_shield('vct_shields_model.keras', 'temp_shield/shield.png')
