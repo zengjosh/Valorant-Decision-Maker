@@ -35,11 +35,11 @@ def take_screenshot():
     files = [os.path.join(screenshot_dir, f) for f in files]  # Full paths of files
     files.sort(key=os.path.getmtime)  # Sort files by modification time, oldest first
 
-    # If there is more than one file in the directory, delete the oldest
-    print(f"Number of screenshots in directory: {len(files)}")
-    if len(files) >= 1:
-        os.remove(files[0])
-        print(f"Deleted oldest screenshot: {files[0]}")
+    # # If there is more than one file in the directory, delete the oldest
+    # print(f"Number of screenshots in directory: {len(files)}")
+    # if len(files) >= 1:
+    #     os.remove(files[0])
+    #     print(f"Deleted oldest screenshot: {files[0]}")
 
     # Continue with saving the new screenshot
     filename = f"screenshot_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
