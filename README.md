@@ -3,6 +3,8 @@ This program helps you decide on the best gun to buy based on your current credi
 To use program:
 1. Run Screenshot.py
 2. Press '=' while on buy screen to take screenshot
-3. Press '`' to exit out of the screenshot program
-4. Run valDM.py to determine shield and gun
+3. Alt-tab to Valorant and take screenshot of the weapon shop screen
+4. Alt-tab back to VS Code (or wherever you are running the program)
+5. Press '`' to exit out of the screenshot program
+6. Run valDM.py to determine shield and gun
 
