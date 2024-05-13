@@ -8,3 +8,8 @@ To use program:
 5. Press '`' to exit out of the screenshot program
 6. Run valDM.py to determine shield and gun
 
+OR
+
+1. Use outside screenshot app and create a folder callled screenshots inside the same directory as valDM.py
+2. Save the file location for screenshots as the screenshots folder created
+3. Take screenshots and run valDM.py 
