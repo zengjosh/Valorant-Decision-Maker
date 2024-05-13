@@ -39,6 +39,7 @@ def crop_image_path(image_path, region):
 
 def process_credits(credits):
     credits = credits.replace(',', '')
+    credits = credits.replace('§', '')
     credits = credits.replace('o', '')
     credits = credits.replace('-', '')
     credits = credits.replace('\n', '')
