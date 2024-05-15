@@ -30,7 +30,7 @@ def build_model(hp):
     x = Dropout(hp.Float('dropout', min_value=0.0, max_value=0.5, step=0.1))(x)
     x = Dense(hp.Int('units2', min_value=16, max_value=256, step=16), activation='relu')(x)
     shield_output = Dense(3, activation='softmax', name='shield_output')(x)
-    gun_output = Dense(14, activation='softmax', name='gun_output')(x)
+    gun_output = Dense(15, activation='softmax', name='gun_output')(x)
     model = Model(inputs=inputs, outputs=[shield_output, gun_output])
     model.compile(optimizer=Adam(hp.Choice('learning_rate', values=[1e-2, 1e-3, 1e-4])),
                   loss={'shield_output': 'categorical_crossentropy', 'gun_output': 'categorical_crossentropy'},

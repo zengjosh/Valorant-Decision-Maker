@@ -35,13 +35,31 @@ def preprocess_image(image_path, region=None):
     dilated = cv2.dilate(blur, kernel, iterations=1)
     eroded = cv2.erode(dilated, kernel, iterations=1)
     text = pytesseract.image_to_string(eroded, config='--psm 6')
+    cv2.imshow('Final Preprocessed Image', eroded)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
     return text
 
 def process_credits(credits):
-    # Strip unwanted characters and correct common OCR errors
-    translations = {ord(c): None for c in ",o-O\n.nO "}
-    credits = credits.translate(translations).lstrip('0')
-    return '0' if credits == '' else credits[-4:]
+    credits = credits.replace('m', '')
+    credits = credits.replace(',', '')
+    credits = credits.replace('§', '')
+    credits = credits.replace('o', '')
+    credits = credits.replace('-', '')
+    credits = credits.replace('\n', '')
+    credits = credits.replace('n', '')
+    credits = credits.replace('.', '')
+    credits = credits.replace('O', '')
+    credits = credits.replace(' ', '')
+    
+    credits = credits.strip()
+    if (len(credits) != 1):
+        credits  =credits.lstrip('0')
+    if len(credits) > 4:
+        credits = credits[-4:]
+    if (len(credits) == 0):
+        credits = '0'
+    return credits
 
 def get_latest_image_path(directory):
     all_files = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
@@ -54,7 +72,7 @@ if image_path:
     u_credits = int(process_credits(preprocess_image(image_path, region=(0.14322, 0.11713, 0.03932, 0.02546))))
     t1_credits = int(process_credits(preprocess_image(image_path, region=(0.15703, 0.25509, 0.02474, 0.01667))))
     t2_credits = int(process_credits(preprocess_image(image_path, region=(0.15703, 0.36011, 0.02474, 0.01667))))
-    t3_credits = int(process_credits(preprocess_image(image_path, region=(0.15703, 0.46875, 0.02474, 0.01667))))
+    t3_credits = int(process_credits(preprocess_image(image_path, region=(0.15703, 0.46675, 0.02474, 0.01667))))
     t4_credits = int(process_credits(preprocess_image(image_path, region=(0.15703, 0.57439, 0.02474, 0.01667))))
     credits = np.array([[u_credits, t1_credits, t2_credits, t3_credits, t4_credits]])
     scaled_credits = scaler.transform(credits)
